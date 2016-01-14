@@ -2,8 +2,11 @@ package com.example.mikaela.project;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
+
+import com.example.mikaela.project.PasswordForm.PasswordAlgorithm;
+import com.example.mikaela.project.PasswordForm.DrawPasswordComponent;
+import com.example.mikaela.project.PasswordForm.PasswordForm;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -11,10 +14,6 @@ public class MainActivity extends AppCompatActivity {
     // 1 för algorithmen vi använder för att beräkna om det är bra eller inte
     // och 1 för hur indikatorn ser ut
 
-    //komponenten kommer då ha 4 default konstruktorer
-    //1 för att skapa komponenten
-    //1 för att skapa algorithmen
-    //1 för att skapa indikatorn
 
     // en användare ska kunna välja att använda vår eller en egen variant av algorithm eller indikator
 
@@ -23,9 +22,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         TableLayout layout = new TableLayout(this);
-        LoginMaster lm = new LoginMaster(this);
 
-        layout.addView(lm);
+        boolean passwordForm = true;
+        boolean stepsForm = true;
+
+        CreateForm createForm = new CreateForm(this, passwordForm, stepsForm);
+
+        layout.addView(createForm);
 
         setContentView(layout);
     }

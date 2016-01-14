@@ -1,40 +1,43 @@
-package com.example.mikaela.project;
+package com.example.mikaela.project.PasswordForm;
 
 import android.content.Context;
 
 /**
  * Created by mikaela on 16-01-09.
  */
-public class ComponentAlgorithm{
+public class PasswordAlgorithm {
     Context context;
-    int good = 3, medium = 2, bad = 1;
-    Boolean[] checkedConditions;
+    int good = 1, bad = 0;
 
-    public ComponentAlgorithm() {
-        checkedConditions = new Boolean[6];
-        //PasswordStrength(s);
+    public PasswordAlgorithm() {
+
 
     }
 
     public int PasswordStrength(String s){
-        //välj hur ett bra lösenord ska vara
         //kunna ändra antal steg: egen funktion
         int nrOfCharacters = 6;
         int nrOfNumbers = 2;
         int nrOfCapitalLetters = 1;
         int sum = 0;
 
-        sum += checkNrOfCharacters(s, nrOfCharacters);
+        boolean isNumberOfCorrect = checkNrOfCharacters(s, nrOfCharacters);
         sum += checkNrOfNumbers(s, nrOfNumbers);
         sum += checkNrOfCapitalLetters(s, nrOfCapitalLetters);
 
-        return sum;
+        if(isNumberOfCorrect){
+            sum++;
+            return sum;
+        }
+
+        return 0;
     }
 
-    public int checkNrOfCharacters(String s, int n){
-        if(s.length() > n) return good;
-        else if(s.length() < n/3) return bad;
-        else return medium;
+    public boolean checkNrOfCharacters(String s, int n){
+        if(s.length() >= n) {
+            return true;
+        }
+        else return false;
     }
 
     public int checkNrOfNumbers(String s, int n){
@@ -44,9 +47,8 @@ public class ComponentAlgorithm{
                 count++;
             }
         }
-        if(count >= good) return good;
-        else if(count <= bad) return bad;
-        else return medium;
+        if(count >= n) return good;
+        else return bad;
     }
 
     public int checkNrOfCapitalLetters(String s, int n){
@@ -56,8 +58,7 @@ public class ComponentAlgorithm{
                 count++;
             }
         }
-        if(count >= good) return good;
-        else if(count <= bad) return bad;
-        else return medium;
+        if(count >= n) return good;
+        else return bad;
     }
 }

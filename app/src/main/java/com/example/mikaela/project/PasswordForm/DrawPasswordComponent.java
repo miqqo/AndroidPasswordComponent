@@ -1,4 +1,4 @@
-package com.example.mikaela.project;
+package com.example.mikaela.project.PasswordForm;
 
 import android.view.View;
 import android.content.Context;
@@ -9,11 +9,11 @@ import android.graphics.Paint;
 /**
  * Created by mikaela on 16-01-07.
  */
-public class DrawComponent extends View {
+public class DrawPasswordComponent extends View {
     Paint paint;
     int colorNumber;
 
-    public DrawComponent(Context con){
+    public DrawPasswordComponent(Context con){
         super(con);
     }
 
@@ -28,17 +28,17 @@ public class DrawComponent extends View {
         super.onDraw(canvas);
         paint = new Paint();
 
-        if(colorNumber < 3){
+        if(colorNumber == 0){
             paint.setColor(Color.RED);
         }
-        else if(colorNumber == 9){
-            paint.setColor(Color.GREEN);
+        else if(colorNumber == 2){
+            paint.setColor(Color.YELLOW);
 
         }
-        else paint.setColor(Color.YELLOW);
+        else paint.setColor(Color.GREEN);
 
 
-        canvas.drawCircle(10, 10, 10, paint);
+        canvas.drawCircle(20, 20, 20, paint);
     }
 
     @Override
