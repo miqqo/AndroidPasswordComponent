@@ -31,7 +31,7 @@ public class DrawPasswordComponent extends View {
         if(colorNumber == 0){
             paint.setColor(Color.RED);
         }
-        else if(colorNumber == 2){
+        else if(colorNumber > 0 && colorNumber < 3){
             paint.setColor(Color.YELLOW);
 
         }

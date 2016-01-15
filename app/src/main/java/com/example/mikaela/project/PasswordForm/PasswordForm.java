@@ -5,7 +5,6 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
-import android.view.Gravity;
 import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -18,6 +17,7 @@ public class PasswordForm extends TableLayout {
     PasswordForm lm = PasswordForm.this;
     PasswordAlgorithm passwordAlgorithm;
     DrawPasswordComponent drawComponent;
+    boolean useGivenVisualization = false;
 
     Context con;
 
@@ -27,8 +27,9 @@ public class PasswordForm extends TableLayout {
         con = context;
         passwordAlgorithm = new PasswordAlgorithm();
         drawComponent = new DrawPasswordComponent(context);
+        useGivenVisualization = true;
 
-        init(context);
+        init();
     }
 
     //** Constructor with specified Algorithm **
@@ -36,8 +37,9 @@ public class PasswordForm extends TableLayout {
         super(context);
         passwordAlgorithm = pa;
         drawComponent = new DrawPasswordComponent(context);
+        useGivenVisualization = true;
 
-        init(context);
+        init();
     }
 
     //** Constructor with specified drawComponent **
@@ -45,8 +47,9 @@ public class PasswordForm extends TableLayout {
         super(context);
         passwordAlgorithm = new PasswordAlgorithm();
         drawComponent = pc;
+        useGivenVisualization = false;
 
-        init(context);
+        init();
     }
 
     //** Constructor with specified drawComponent and algorithm**
@@ -54,30 +57,36 @@ public class PasswordForm extends TableLayout {
         super(context);
         passwordAlgorithm = ca;
         drawComponent = dc;
+        useGivenVisualization = false;
 
-        init(context);
-
+        init();
     }
 
-    private void init(Context context){
-        con = context;
+    private void init(){
         setUpPassword();
-
     }
 
-    public void setUpPassword(){
+    private void setUpPassword(){
+
+        DisplayMetrics metrics = con.getResources().getDisplayMetrics();
+        int width = metrics.widthPixels - metrics.widthPixels/2;
+
         TableRow row = new TableRow(con);
 
         text = new TextView(con);
         text.setText("Password");
 
         pwd = new EditText(con);
-        pwd.setWidth(500);
+        pwd.setWidth(width);
         pwd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
         row.addView(text);
         row.addView(pwd);
-        row.addView(drawComponent);
+
+
+        if(useGivenVisualization){
+            row.addView(drawComponent);
+        }
 
         lm.addView(row);
         pwd.addTextChangedListener(watch);
@@ -106,8 +115,6 @@ public class PasswordForm extends TableLayout {
 
         }
     };
-
-
 
 
 }

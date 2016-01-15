@@ -33,14 +33,14 @@ public class PasswordAlgorithm {
         return 0;
     }
 
-    public boolean checkNrOfCharacters(String s, int n){
+    private boolean checkNrOfCharacters(String s, int n){
         if(s.length() >= n) {
             return true;
         }
         else return false;
     }
 
-    public int checkNrOfNumbers(String s, int n){
+    private int checkNrOfNumbers(String s, int n){
         int count = 0;
         for (int i = 0, len = s.length(); i < len; i++) {
             if (Character.isDigit(s.charAt(i))) {
@@ -51,7 +51,7 @@ public class PasswordAlgorithm {
         else return bad;
     }
 
-    public int checkNrOfCapitalLetters(String s, int n){
+    private int checkNrOfCapitalLetters(String s, int n){
         int count = 0;
         for (int i = 0, len = s.length(); i < len; i++) {
             if (Character.isUpperCase(s.charAt(i))) {
