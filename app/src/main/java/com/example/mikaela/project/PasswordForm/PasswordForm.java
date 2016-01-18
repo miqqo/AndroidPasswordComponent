@@ -22,7 +22,7 @@ public class PasswordForm extends TableLayout {
     PasswordForm lm = PasswordForm.this;
     PasswordAlgorithm passwordAlgorithm;
     DrawPasswordComponent drawComponent;
-    boolean useGivenVisualization = false;
+    boolean useGivenVisualization = false, useGivenAlgorithm = false;
 
     Context con;
 
@@ -33,6 +33,7 @@ public class PasswordForm extends TableLayout {
         passwordAlgorithm = new PasswordAlgorithm();
         drawComponent = new DrawPasswordComponent(context);
         useGivenVisualization = true;
+        useGivenAlgorithm = true;
 
         init();
     }
@@ -43,6 +44,7 @@ public class PasswordForm extends TableLayout {
         passwordAlgorithm = pa;
         drawComponent = new DrawPasswordComponent(context);
         useGivenVisualization = true;
+        useGivenAlgorithm = false;
 
         init();
     }
@@ -53,6 +55,7 @@ public class PasswordForm extends TableLayout {
         passwordAlgorithm = new PasswordAlgorithm();
         drawComponent = pc;
         useGivenVisualization = false;
+        useGivenAlgorithm = true;
 
         init();
     }
@@ -63,6 +66,7 @@ public class PasswordForm extends TableLayout {
         passwordAlgorithm = ca;
         drawComponent = dc;
         useGivenVisualization = false;
+        useGivenAlgorithm = false;
 
         init();
     }
@@ -109,9 +113,13 @@ public class PasswordForm extends TableLayout {
         public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             String input = s.toString();
-            int n, numberOfSteps;
-            numberOfSteps = passwordAlgorithm.getNumberOfSteps();
-            n = passwordAlgorithm.PasswordStrength(input);
+            int n = 0, numberOfSteps = 0;
+
+            if(useGivenAlgorithm){
+                numberOfSteps = passwordAlgorithm.getNumberOfSteps();
+                n = passwordAlgorithm.PasswordStrength(input);
+            }
+
             drawComponent.updatePassword(n, numberOfSteps);
 
         }

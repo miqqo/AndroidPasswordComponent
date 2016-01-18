@@ -20,7 +20,7 @@ import com.example.mikaela.project.StepsLeft.StepsLeft;
  *  It also uses stepsLeft and PasswordForm if the bool is set to true in MainActivity
  *
  *  For the password, you can choose if you want to use your own algorithm for how to calculate
- *  the password and of you want to use your own way of visualizing the strength of the password.
+ *  the password, and if you want to use your own way of visualizing the strength of the password.
  *  To do so, add a new parameter to PasswordForm(context).
  *
  *  The visualization for showing steps left is possible to change in the function

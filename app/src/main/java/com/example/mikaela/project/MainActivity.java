@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
         TableLayout layout = new TableLayout(this);
 
-        boolean passwordForm = false;
+        boolean passwordForm = true;
         boolean stepsForm = true;
 
         CreateForm createForm = new CreateForm(this, passwordForm, stepsForm);
