@@ -4,26 +4,30 @@ import android.content.Context;
 
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TableLayout;
-import android.widget.TextView;
 
 /**
- * Created by mikaela on 16-01-14.
+ *  This class creates the visualization of how to show steps left.
+ *
+ *  It is possible to change number of steps, how many steps to move forward every time
+ *  and what level of progress you want to begin with.
+ *
+ *  The progress bar can be changed to some other visualization by changing the
+ *  code in drawStepsVisualization().
+ *
  */
+
 public class StepsLeft extends TableLayout{
     Context con;
 
-    int numberOfSteps, currentStep;
-    ProgressBar progressBar;
+    int numberOfSteps = 4, currentStep, stepsToMoveForward = 1, startProgressAt = 1;
+    ProgressBar visualization;
 
     public StepsLeft(Context context){
         super(context);
         con = context;
-        drawProgressBar();
+        drawStepsVisualization();
     }
 
     public int getCurrentStep(){
@@ -31,27 +35,26 @@ public class StepsLeft extends TableLayout{
     }
 
     private int setUpSteps(){
-        numberOfSteps = 4;
         return numberOfSteps;
     }
 
     public void updateStep(int level){
-        progressBar.setProgress(level +1);
-
+        visualization.setProgress(level + stepsToMoveForward);
     }
 
-    public void drawProgressBar(){
+    public void drawStepsVisualization(){
 
         currentStep = getCurrentStep();
 
         numberOfSteps = setUpSteps();
-        progressBar = new ProgressBar(con,null,android.R.attr.progressBarStyleHorizontal);
-        progressBar.setMax(numberOfSteps);
-        progressBar.setProgress(1);
-        progressBar.getProgressDrawable().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
 
-        this.addView(progressBar);
+        /** Progress bar */
+        visualization = new ProgressBar(con,null,android.R.attr.progressBarStyleHorizontal);
+        visualization.setMax(numberOfSteps);
+        visualization.setProgress(startProgressAt);
+        visualization.getProgressDrawable().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
 
+        this.addView(visualization);
 
     }
 

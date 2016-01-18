@@ -11,6 +11,11 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 
+/**
+ *  This class creates the password text field and its functionality.
+ *
+ */
+
 public class PasswordForm extends TableLayout {
     public TextView text;
     public EditText pwd;
@@ -21,7 +26,7 @@ public class PasswordForm extends TableLayout {
 
     Context con;
 
-    //** Default constructor **
+    /** Default constructor */
     public PasswordForm(Context context) {
         super(context);
         con = context;
@@ -32,7 +37,7 @@ public class PasswordForm extends TableLayout {
         init();
     }
 
-    //** Constructor with specified Algorithm **
+    /** Constructor with specified Algorithm */
     public PasswordForm(Context context, PasswordAlgorithm pa){
         super(context);
         passwordAlgorithm = pa;
@@ -42,7 +47,7 @@ public class PasswordForm extends TableLayout {
         init();
     }
 
-    //** Constructor with specified drawComponent **
+    /** Constructor with specified drawComponent */
     public PasswordForm(Context context, DrawPasswordComponent pc){
         super(context);
         passwordAlgorithm = new PasswordAlgorithm();
@@ -52,7 +57,7 @@ public class PasswordForm extends TableLayout {
         init();
     }
 
-    //** Constructor with specified drawComponent and algorithm**
+    /** Constructor with specified drawComponent and algorithm*/
     public PasswordForm(Context context, PasswordAlgorithm ca, DrawPasswordComponent dc){
         super(context);
         passwordAlgorithm = ca;
@@ -104,9 +109,10 @@ public class PasswordForm extends TableLayout {
         public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             String input = s.toString();
-            int n;
+            int n, numberOfSteps;
+            numberOfSteps = passwordAlgorithm.getNumberOfSteps();
             n = passwordAlgorithm.PasswordStrength(input);
-            drawComponent.updatePassword(n);
+            drawComponent.updatePassword(n, numberOfSteps);
 
         }
 

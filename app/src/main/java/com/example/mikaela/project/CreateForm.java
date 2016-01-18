@@ -15,8 +15,19 @@ import com.example.mikaela.project.PasswordForm.PasswordForm;
 import com.example.mikaela.project.StepsLeft.StepsLeft;
 
 /**
- * Created by mikaela on 16-01-14.
+ *  This class creates an example of an log-in form.
+ *
+ *  It also uses stepsLeft and PasswordForm if the bool is set to true in MainActivity
+ *
+ *  For the password, you can choose if you want to use your own algorithm for how to calculate
+ *  the password and of you want to use your own way of visualizing the strength of the password.
+ *  To do so, add a new parameter to PasswordForm(context).
+ *
+ *  The visualization for showing steps left is possible to change in the function
+ *  drawStepsVisualization() in the StepsLeft class.
+ *
  */
+
 public class CreateForm extends TableLayout {
     public TextView text1, text2, text3;
     public EditText username, fullName;
@@ -24,6 +35,7 @@ public class CreateForm extends TableLayout {
     int currentStep;
     Button ok;
     Context con;
+    boolean usePassword, useSteps;
 
     CreateForm cf = CreateForm.this;
     PasswordForm passwordForm;
@@ -37,13 +49,15 @@ public class CreateForm extends TableLayout {
         if(useStepsForm){
             stepsLeft = new StepsLeft(context);
             currentStep = stepsLeft.getCurrentStep();
+
         }
         if(usePasswordForm){
-            //här kan man välja om man vill använda både algoritmen och visualiseringen eller
-            //om man bara vill använda en av dem eller ingen av dem
-
             passwordForm = new PasswordForm(context);
+
         }
+
+        usePassword = usePasswordForm;
+        useSteps = useStepsForm;
 
         setUpView(context);
     }
@@ -82,7 +96,8 @@ public class CreateForm extends TableLayout {
         cf.removeAllViews();
 
 
-        cf.addView(stepsLeft);
+        if(useSteps) cf.addView(stepsLeft);
+
 
         if(currentStep == 0){
             tableRow1.addView(text1);
@@ -99,7 +114,7 @@ public class CreateForm extends TableLayout {
         }
 
         else if(currentStep == 2){
-            tableRow3.addView(passwordForm);
+            if(usePassword) tableRow3.addView(passwordForm);
             tableRow3.addView(ok);
             cf.addView(tableRow3);
         }
@@ -111,7 +126,7 @@ public class CreateForm extends TableLayout {
             public void onClick(View v) {
                 currentStep++;
                 setUpView(context);
-                stepsLeft.updateStep(currentStep);
+                if(useSteps)stepsLeft.updateStep(currentStep);
 
             };
         });

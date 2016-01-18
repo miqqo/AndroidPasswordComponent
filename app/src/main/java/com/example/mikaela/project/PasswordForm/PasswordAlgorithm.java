@@ -1,21 +1,23 @@
 package com.example.mikaela.project.PasswordForm;
 
-import android.content.Context;
 
 /**
- * Created by mikaela on 16-01-09.
+ *  This class includes an algorithm determining how good a password is.
+ *  It is possible to change the number of characters, numbers and capital letters.
+ *  Also possible to change the points you get for every correct answer and the number of
+ *  steps available to visualize.
  */
 public class PasswordAlgorithm {
-    Context context;
-    int good = 1, bad = 0;
 
-    public PasswordAlgorithm() {
+    int good = 1, bad = 0, numberOfSteps = 3;
 
 
+    public int getNumberOfSteps(){
+        return numberOfSteps;
     }
 
     public int PasswordStrength(String s){
-        //kunna ändra antal steg: egen funktion
+
         int nrOfCharacters = 6;
         int nrOfNumbers = 2;
         int nrOfCapitalLetters = 1;
