@@ -29,8 +29,6 @@ import com.example.mikaela.project.StepsLeft.StepsLeft;
  */
 
 public class CreateForm extends TableLayout {
-    public TextView text1, text2, text3;
-    public EditText username, fullName;
 
     int currentStep;
     Button ok;
@@ -59,74 +57,29 @@ public class CreateForm extends TableLayout {
         usePassword = usePasswordForm;
         useSteps = useStepsForm;
 
-        setUpView(context);
+        setUpView();
     }
 
-    private void setUpView(final Context context){
+    private void setUpView(){
 
-        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
-        int width = metrics.widthPixels - metrics.widthPixels/2;
-
-        TableRow tableRow1 = new TableRow(context);
-        TableRow tableRow2 = new TableRow(context);
-        TableRow tableRow3 = new TableRow(context);
-
-
-        ok = new Button(context);
+        ok = new Button(con);
         ok.setText("ok");
 
-        text1 = new TextView(context);
-        text1.setText("Full name");
-
-        text2 = new TextView(context);
-        text2.setText("Username");
-
-        text3 = new TextView(context);
-        text3.setText("Well done!");
-        text3.setGravity(Gravity.CENTER_HORIZONTAL);
-
-        fullName = new EditText(context);
-        fullName.setWidth(width);
-        fullName.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-
-        username = new EditText(context);
-        username.setWidth(width);
-        username.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-
         cf.removeAllViews();
+        stepsLeft.addStep(passwordForm);
 
+        cf.addView(stepsLeft.setStep(currentStep));
+        cf.addView(ok);
+        System.out.println("HÄÄR");
 
-        if(useSteps) cf.addView(stepsLeft);
-
-
-        if(currentStep == 0){
-            tableRow1.addView(text1);
-            tableRow1.addView(username);
-            tableRow1.addView(ok);
-            cf.addView(tableRow1);
-
-        }
-        else if(currentStep == 1){
-            tableRow2.addView(text2);
-            tableRow2.addView(fullName);
-            tableRow2.addView(ok);
-            cf.addView(tableRow2);
-        }
-
-        else if(currentStep == 2){
-            if(usePassword) tableRow3.addView(passwordForm);
-            tableRow3.addView(ok);
-            cf.addView(tableRow3);
-        }
-        else cf.addView(text3);
 
 
         ok.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 currentStep++;
-                setUpView(context);
-                if(useSteps)stepsLeft.updateStep(currentStep);
+                setUpView();
+               // if(useSteps)stepsLeft.updateStep(currentStep);
 
             };
         });

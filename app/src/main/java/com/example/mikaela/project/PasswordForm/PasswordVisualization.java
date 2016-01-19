@@ -11,11 +11,11 @@ import android.graphics.Paint;
  *  This class draw out the visualization for how good your password is.
  */
 
-public class DrawPasswordComponent extends View {
+public class PasswordVisualization extends View {
     Paint paint;
     int colorNumber, numberOfSteps;
 
-    public DrawPasswordComponent(Context con){
+    public PasswordVisualization(Context con){
         super(con);
     }
 

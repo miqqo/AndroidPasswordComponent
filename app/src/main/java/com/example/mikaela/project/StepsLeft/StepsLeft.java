@@ -4,8 +4,18 @@ import android.content.Context;
 
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.text.InputType;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 /**
  *  This class creates the visualization of how to show steps left.
@@ -18,16 +28,45 @@ import android.widget.TableLayout;
  *
  */
 
-public class StepsLeft extends TableLayout{
-    Context con;
+//skapa en arraylist med views
+public class StepsLeft extends View{
+    Context context;
+    public TextView text1, text2, text3;
+    public EditText username, fullName;
+    Button ok;
+    ArrayList<View> views = new ArrayList<View>(4);
+    StepsView stepsView;
 
     int numberOfSteps = 4, currentStep, stepsToMoveForward = 1, startProgressAt = 1;
     ProgressBar visualization;
+   // StepsVisualization stepsVisualization;
 
-    public StepsLeft(Context context){
-        super(context);
-        con = context;
-        drawStepsVisualization();
+    public StepsLeft(Context con){
+        super(con);
+        context = con;
+       // stepsVisualization = new StepsVisualization(con);
+        setArray();
+
+    }
+
+    //för att lägga till ett steg i min arraylist
+    public void addStep(View view){
+
+        views.add(view);
+    }
+
+    //för att visa vilket steg som ska visas just nu
+    public View setStep(int currentStep){
+        return views.get(currentStep);
+    }
+
+    private void setArray(){
+
+        for(int i = 0; i < 3; i++){
+          //  updateStep(i);
+            stepsView = new StepsView(context, i);
+            views.add(stepsView);
+        }
     }
 
     public int getCurrentStep(){
@@ -38,25 +77,10 @@ public class StepsLeft extends TableLayout{
         return numberOfSteps;
     }
 
-    public void updateStep(int level){
-        visualization.setProgress(level + stepsToMoveForward);
-    }
+  /*  public void updateStep(int step){
+        stepsVisualization.updateStep(step);
+    }*/
 
-    public void drawStepsVisualization(){
-
-        currentStep = getCurrentStep();
-
-        numberOfSteps = setUpSteps();
-
-        /** Progress bar */
-        visualization = new ProgressBar(con,null,android.R.attr.progressBarStyleHorizontal);
-        visualization.setMax(numberOfSteps);
-        visualization.setProgress(startProgressAt);
-        visualization.getProgressDrawable().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
-
-        this.addView(visualization);
-
-    }
 
 
 

@@ -4,10 +4,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TableLayout;
 
-import com.example.mikaela.project.PasswordForm.PasswordAlgorithm;
-import com.example.mikaela.project.PasswordForm.DrawPasswordComponent;
-import com.example.mikaela.project.PasswordForm.PasswordForm;
-
 /**
  *  By setting passwordForm and stepsForm to true or false,
  *  you specify if you want to use any or both or none of these functions.

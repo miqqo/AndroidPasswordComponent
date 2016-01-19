@@ -21,7 +21,7 @@ public class PasswordForm extends TableLayout {
     public EditText pwd;
     PasswordForm lm = PasswordForm.this;
     PasswordAlgorithm passwordAlgorithm;
-    DrawPasswordComponent drawComponent;
+    PasswordVisualization drawComponent;
     boolean useGivenVisualization = false, useGivenAlgorithm = false;
 
     Context con;
@@ -31,7 +31,7 @@ public class PasswordForm extends TableLayout {
         super(context);
         con = context;
         passwordAlgorithm = new PasswordAlgorithm();
-        drawComponent = new DrawPasswordComponent(context);
+        drawComponent = new PasswordVisualization(context);
         useGivenVisualization = true;
         useGivenAlgorithm = true;
 
@@ -42,7 +42,7 @@ public class PasswordForm extends TableLayout {
     public PasswordForm(Context context, PasswordAlgorithm pa){
         super(context);
         passwordAlgorithm = pa;
-        drawComponent = new DrawPasswordComponent(context);
+        drawComponent = new PasswordVisualization(context);
         useGivenVisualization = true;
         useGivenAlgorithm = false;
 
@@ -50,7 +50,7 @@ public class PasswordForm extends TableLayout {
     }
 
     /** Constructor with specified drawComponent */
-    public PasswordForm(Context context, DrawPasswordComponent pc){
+    public PasswordForm(Context context, PasswordVisualization pc){
         super(context);
         passwordAlgorithm = new PasswordAlgorithm();
         drawComponent = pc;
@@ -61,7 +61,7 @@ public class PasswordForm extends TableLayout {
     }
 
     /** Constructor with specified drawComponent and algorithm*/
-    public PasswordForm(Context context, PasswordAlgorithm ca, DrawPasswordComponent dc){
+    public PasswordForm(Context context, PasswordAlgorithm ca, PasswordVisualization dc){
         super(context);
         passwordAlgorithm = ca;
         drawComponent = dc;
@@ -82,6 +82,7 @@ public class PasswordForm extends TableLayout {
 
         TableRow row = new TableRow(con);
 
+        //testa med match parent
         text = new TextView(con);
         text.setText("Password");
 
