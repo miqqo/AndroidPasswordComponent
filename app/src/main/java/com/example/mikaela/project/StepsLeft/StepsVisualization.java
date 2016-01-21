@@ -3,17 +3,15 @@ package com.example.mikaela.project.StepsLeft;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TableLayout;
-import android.widget.TableRow;
 
 /**
  * Created by mikaela on 16-01-19.
  */
 public class StepsVisualization extends TableLayout {
     Context context;
-    int numberOfSteps = 4, currentStep, stepsToMoveForward = 1, startProgressAt = 1;
+    int numberOfSteps = 4, stepsToMoveForward = 1, startProgressAt = 1;
     ProgressBar visualization;
 
 

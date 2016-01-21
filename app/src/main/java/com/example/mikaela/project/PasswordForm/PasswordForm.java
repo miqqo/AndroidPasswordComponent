@@ -14,6 +14,8 @@ import android.widget.TextView;
 /**
  *  This class creates the password text field and its functionality.
  *
+ *  If using custom algorithm and/or custom visualization, you need to call your
+ *  corresponding functions in the TextWatcher.
  */
 
 public class PasswordForm extends TableLayout {
@@ -38,7 +40,7 @@ public class PasswordForm extends TableLayout {
         init();
     }
 
-    /** Constructor with specified Algorithm */
+    /** Constructor with custom Algorithm */
     public PasswordForm(Context context, PasswordAlgorithm pa){
         super(context);
         passwordAlgorithm = pa;
@@ -49,7 +51,7 @@ public class PasswordForm extends TableLayout {
         init();
     }
 
-    /** Constructor with specified drawComponent */
+    /** Constructor with custom drawComponent */
     public PasswordForm(Context context, PasswordVisualization pc){
         super(context);
         passwordAlgorithm = new PasswordAlgorithm();
@@ -60,7 +62,7 @@ public class PasswordForm extends TableLayout {
         init();
     }
 
-    /** Constructor with specified drawComponent and algorithm*/
+    /** Constructor with custom drawComponent and algorithm.*/
     public PasswordForm(Context context, PasswordAlgorithm ca, PasswordVisualization dc){
         super(context);
         passwordAlgorithm = ca;
@@ -75,6 +77,8 @@ public class PasswordForm extends TableLayout {
         setUpPassword();
     }
 
+    /* If you are using a custom visualization, you need to decide where in the view
+    * you want to put it. Add the component to the current row or create a new row. */
     private void setUpPassword(){
 
         DisplayMetrics metrics = con.getResources().getDisplayMetrics();
@@ -82,7 +86,6 @@ public class PasswordForm extends TableLayout {
 
         TableRow row = new TableRow(con);
 
-        //testa med match parent
         text = new TextView(con);
         text.setText("Password");
 
@@ -121,7 +124,9 @@ public class PasswordForm extends TableLayout {
                 n = passwordAlgorithm.PasswordStrength(input);
             }
 
-            drawComponent.updatePassword(n, numberOfSteps);
+            if(useGivenVisualization){
+                drawComponent.updatePassword(n, numberOfSteps);
+            }
 
         }
 

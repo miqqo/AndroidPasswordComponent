@@ -1,85 +1,81 @@
 package com.example.mikaela.project.StepsLeft;
 
 import android.content.Context;
-
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.text.InputType;
-import android.util.DisplayMetrics;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
- *  This class creates the visualization of how to show steps left.
- *
- *  It is possible to change number of steps, how many steps to move forward every time
- *  and what level of progress you want to begin with.
- *
- *  The progress bar can be changed to some other visualization by changing the
- *  code in drawStepsVisualization().
- *
+ *  This class is the connection between the visualization of steps left and
+ *  the content in every step.
  */
 
-//skapa en arraylist med views
 public class StepsLeft extends View{
     Context context;
-    public TextView text1, text2, text3;
-    public EditText username, fullName;
-    Button ok;
-    ArrayList<View> views = new ArrayList<View>(4);
+    int numberOfSteps = 2, currentStep;
+
+    ArrayList<View> views = new ArrayList<View>(numberOfSteps);
+    List<Boolean> isViewDone = new ArrayList<>(numberOfSteps);
     StepsView stepsView;
+    StepsVisualization stepsVisualization;
 
-    int numberOfSteps = 4, currentStep, stepsToMoveForward = 1, startProgressAt = 1;
-    ProgressBar visualization;
-   // StepsVisualization stepsVisualization;
-
+    /** Default constructor*/
     public StepsLeft(Context con){
         super(con);
         context = con;
-       // stepsVisualization = new StepsVisualization(con);
+        stepsVisualization = new StepsVisualization(con);
         setArray();
 
     }
+    /** Constructor with custom Visualization */
+    public StepsLeft(Context con, StepsVisualization sv){
+        super(con);
+        stepsVisualization = sv;
+    }
 
-    //för att lägga till ett steg i min arraylist
+    /** Adds one step to the component by putting the view in the array of views*/
     public void addStep(View view){
 
         views.add(view);
     }
 
-    //för att visa vilket steg som ska visas just nu
+    /** Returns the current step and content to show*/
     public View setStep(int currentStep){
         return views.get(currentStep);
     }
 
+    /** This function initialize an array with all our predefined views.
+     * It retrieves the content for each step from the stepsView-class*/
     private void setArray(){
 
-        for(int i = 0; i < 3; i++){
-          //  updateStep(i);
+        for(int i = 0; i < numberOfSteps; i++){
             stepsView = new StepsView(context, i);
             views.add(stepsView);
         }
     }
 
+    /** If the user has pressed ok, the step is set to done in this function.
+     * The array isViewDone can be used in cases you want to mark a done step if you
+     * have the opportunity to choose what order you want to fill in the steps in*/
+    public void setDone(int s){
+        isViewDone.set(s, true);
+    }
+
+
     public int getCurrentStep(){
         return currentStep;
     }
 
-    private int setUpSteps(){
-        return numberOfSteps;
+    /** This function update the step in the visualization to move one step forward.*/
+    public void updateStep(int step){
+        stepsVisualization.updateStep(step);
     }
 
-  /*  public void updateStep(int step){
-        stepsVisualization.updateStep(step);
-    }*/
+    /** This function is setting up the chosen visualization*/
+    public View setUpVisualization(){
+            return this.stepsVisualization;
+    }
 
 
 
