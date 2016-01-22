@@ -14,17 +14,17 @@ import android.widget.TextView;
 /**
  *  This class creates the password text field and its functionality.
  *
- *  If using custom algorithm and/or custom visualization, you need to call your
- *  corresponding functions in the TextWatcher.
  */
 
 public class PasswordForm extends TableLayout {
     public TextView text;
     public EditText pwd;
     PasswordForm lm = PasswordForm.this;
+    PasswordListener listener;
     PasswordAlgorithm passwordAlgorithm;
     PasswordVisualization drawComponent;
     boolean useGivenVisualization = false, useGivenAlgorithm = false;
+    int oldLevel = 0;
 
     Context con;
 
@@ -40,7 +40,7 @@ public class PasswordForm extends TableLayout {
         init();
     }
 
-    /** Constructor with custom Algorithm */
+    /** Constructor with custom Algorithm. */
     public PasswordForm(Context context, PasswordAlgorithm pa){
         super(context);
         passwordAlgorithm = pa;
@@ -73,6 +73,10 @@ public class PasswordForm extends TableLayout {
         init();
     }
 
+    public void setListener(PasswordListener listener){
+        this.listener = listener;
+    }
+
     private void init(){
         setUpPassword();
     }
@@ -96,10 +100,9 @@ public class PasswordForm extends TableLayout {
         row.addView(text);
         row.addView(pwd);
 
+        /** Here the visualization is added to the view*/
+        row.addView(drawComponent);
 
-        if(useGivenVisualization){
-            row.addView(drawComponent);
-        }
 
         lm.addView(row);
         pwd.addTextChangedListener(watch);
@@ -119,13 +122,15 @@ public class PasswordForm extends TableLayout {
             String input = s.toString();
             int n = 0, numberOfSteps = 0;
 
-            if(useGivenAlgorithm){
-                numberOfSteps = passwordAlgorithm.getNumberOfSteps();
-                n = passwordAlgorithm.PasswordStrength(input);
-            }
+            numberOfSteps = passwordAlgorithm.getNumberOfSteps();
+            n = passwordAlgorithm.PasswordStrength(input);
 
-            if(useGivenVisualization){
-                drawComponent.updatePassword(n, numberOfSteps);
+            drawComponent.updatePassword(n, numberOfSteps);
+
+            //notify the password has updated a level
+            if(n != oldLevel){
+                oldLevel = n;
+                listener.Passwordupdate(n);
             }
 
         }

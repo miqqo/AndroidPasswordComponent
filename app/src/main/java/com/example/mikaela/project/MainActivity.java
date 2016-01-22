@@ -12,6 +12,12 @@ import android.widget.TableLayout;
  *  and visualization or only one of them if you set the passwordForm to true. This you
  *  do in CreateForm.
  *
+ *  It is also possible to choose if you want to use a custom visualization for the
+ *  steps component. This you also do in CreateForm.
+ *
+ *  If you want to use your own class (e.g a new visualization class for the steps-component)
+ *  you need to extend the default class StepsVisualization. That gives the new class access
+ *  to all functions in the default class.
  */
 
 public class MainActivity extends AppCompatActivity {

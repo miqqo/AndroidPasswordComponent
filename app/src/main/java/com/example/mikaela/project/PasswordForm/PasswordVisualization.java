@@ -9,11 +9,17 @@ import android.graphics.Paint;
 
 /**
  *  This class draw out the visualization for how good your password is.
+ *  It is visualized with a circle with changing color. Red is for an unsecure password,
+ *  yellow is showing that the password is ok and the green color is showing that the password is
+ *  really good.
+ *
+ *  If you changed the numberOfSteps variable in the algorithm, you may want to add another if-
+ *  statement in onDraw to add a color.
  */
 
 public class PasswordVisualization extends View {
     Paint paint;
-    int colorNumber, numberOfSteps;
+    int colorNumber, numberOfSteps, oldColorNr = 0;
 
     public PasswordVisualization(Context con){
         super(con);
@@ -31,15 +37,18 @@ public class PasswordVisualization extends View {
         super.onDraw(canvas);
         paint = new Paint();
 
-        for(int i = 0; i < numberOfSteps; i++){
+      //  for(int i = 0; i < numberOfSteps; i++){
             if(colorNumber == 0) {
                 paint.setColor(Color.RED);
             }
             else if(colorNumber == numberOfSteps){
                 paint.setColor(Color.GREEN);
             }
-            else paint.setColor(Color.YELLOW);
-        }
+            else{
+                paint.setColor(Color.YELLOW);
+            }
+
+       // }
 
         if(numberOfSteps == 0) paint.setColor(Color.RED);
 

@@ -2,20 +2,23 @@ package com.example.mikaela.project.PasswordForm;
 
 
 /**
- *  This class includes an algorithm determining how good a password is.
+ *  This class is the algorithm determining how good a password is.
  *  It is possible to change the number of characters, numbers and capital letters.
  *  Also possible to change the points you get for every correct answer and the number of
  *  steps available to visualize.
  */
 public class PasswordAlgorithm {
 
-    int good = 1, bad = 0, numberOfSteps = 3;
+    int good = 1, bad = 0, numberOfSteps = 2;
 
 
     public int getNumberOfSteps(){
         return numberOfSteps;
     }
 
+    /** The following function decides how many characters, number etc needed
+     * for a good password. It checks the current word and add points to a sum-variable
+     * which is used in the visualisation to decide what color to set.*/
     public int PasswordStrength(String s){
 
         int nrOfCharacters = 6;
@@ -28,7 +31,6 @@ public class PasswordAlgorithm {
         sum += checkNrOfCapitalLetters(s, nrOfCapitalLetters);
 
         if(isNumberOfCorrect){
-            sum++;
             return sum;
         }
 

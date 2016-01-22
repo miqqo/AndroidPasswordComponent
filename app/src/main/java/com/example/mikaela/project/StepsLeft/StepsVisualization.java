@@ -6,9 +6,9 @@ import android.graphics.PorterDuff;
 import android.widget.ProgressBar;
 import android.widget.TableLayout;
 
-/**
- * Created by mikaela on 16-01-19.
- */
+/** This class is the visualisation of the steps left. The default visualization
+ * is set to a progress bar. */
+
 public class StepsVisualization extends TableLayout {
     Context context;
     int numberOfSteps = 4, stepsToMoveForward = 1, startProgressAt = 1;
@@ -20,13 +20,14 @@ public class StepsVisualization extends TableLayout {
         context = con;
         drawStepsVisualization();
     }
+    /** Move the visualisation(here: the progress bar) one step forward. */
     public void updateStep(int current){
         visualization.setProgress(current + stepsToMoveForward);
     }
 
+    /** Draw out the chosen visualisation (here: a progress bar) */
     public void drawStepsVisualization(){
 
-        /** Progress bar */
         visualization = new ProgressBar(context,null,android.R.attr.progressBarStyleHorizontal);
         visualization.setMax(numberOfSteps);
         visualization.setProgress(startProgressAt);
